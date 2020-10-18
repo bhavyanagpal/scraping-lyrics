@@ -11,18 +11,19 @@ scope= 'playlist-read-private'
 username = '8eia8ggl4ipbhouhun62o9y8i';
 
 token = util.prompt_for_user_token( username,
-         scope, client_id='',
-         client_secret= '',
+         scope, client_id='3cb41450f466404399f3e0de3e4c89f2',
+         client_secret= '51406619960a46c3a0fc8682e5152784',
          redirect_uri="http://localhost/" )
 
-         
-def show_tracks(tracks):
+#function for prinitng song name and lyrics         
+def show_lyrics(tracks):
     for i, item in enumerate(tracks['items']):
         track = item['track']
         print("   %d %32.32s %s" % (i, track['artists'][0]['name'],
             track['name']))
         artist = track['artists'][0]['name']
         name = track['name']
+        #formatting song url for
         song_url = '{}-{}-lyrics'.format(str(artist).strip().replace(' ', '-').replace('(','').replace(')',''),
                                      str(name).strip().replace(' ', '-').replace('(','').replace(')',''))
         print (song_url)
@@ -31,10 +32,7 @@ def show_tracks(tracks):
         print(request.status_code)
 
         if request.status_code == 200:
-        # BeautifulSoup library return an html code
-            html_code = BeautifulSoup(request.text, features="html.parser")
-
-        # Extract lyrics from beautifulsoup response using the correct prefix {"class": "lyrics"}
+            html_code = BeautifulSoup(request.text, features="html.parser")        
             lyrics = html_code.find("div", {"class": "lyrics"}).get_text()
             print(lyrics)
 
@@ -54,8 +52,13 @@ if token:
             results = sp.playlist(playlist['id'],
                 fields="tracks,next")
             tracks = results['tracks']
-            show_tracks(tracks)
+
+
+            show_lyrics(tracks)
             while tracks['next']:
                 tracks = sp.next(tracks)
                 show_tracks(tracks)
-                
+
+
+else:
+        print("Can't get token for", username)
