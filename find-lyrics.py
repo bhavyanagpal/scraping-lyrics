@@ -11,8 +11,8 @@ scope= 'playlist-read-private'
 username = '8eia8ggl4ipbhouhun62o9y8i';
 
 token = util.prompt_for_user_token( username,
-         scope, client_id='3cb41450f466404399f3e0de3e4c89f2',
-         client_secret= '51406619960a46c3a0fc8682e5152784',
+         scope, client_id='',
+         client_secret= '',
          redirect_uri="http://localhost/" )
 
          
